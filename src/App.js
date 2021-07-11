@@ -1,25 +1,68 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import MovieRow from "./MovieRow.js";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    console.log("This is");
+
+    const movies = [
+    { id: 0, poster_src: "https://www.themoviedb.org/movie/40987-a-tan?language=hu#",
+        title: "Avengers: Infinity War",overview: "As the Avengers"},
+      {id: 1, poster_src: "https://www.themoviedb.org/movie/131586-k-rhinta?language=hu#",
+        title: "The Avengers", overview: "As the Avengers"},
+      {id: 2, poster_src:"https://www.themoviedb.org/movie/8776-isten-hozta-rnagy-r?language=hu#",
+        title: "Avengers: Infinity War", overview: "This is my second owerview",
+      },
+    ];
+
+    var movieRows = [];
+    movies.forEach((movie) => {
+      console.log(movie.title)
+     const movieRows = <MovieRow movie={movie}/>
+movieRows.push(movieRow);
+    })
+
+    this.state = { rows: movieRows };
+  }
+
+  render() {
+    return (
+      <div>
+        <table className="titleBar">
+          <tbody>
+            <tr>
+              <td>
+                <img
+                  width="50"
+                  src="291690_viddler_movie_social_social media_logo_icon.svg"
+                  alt="svg"
+                />
+              </td>
+              <td width="8" />
+              <td>
+                <h1>Mozigépész</h1>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <input
+          style={{
+            fontSize: 24,
+            display: "block",
+            width: "99%",
+            paddingTop: 8,
+            paddingBottom: 8,
+            paddingLeft: 16,
+          }}
+          placeholder="Keresés"
+        />
+
+        {this.state.rows}
+      </div>
+    );
+  }
 }
-
 export default App;
