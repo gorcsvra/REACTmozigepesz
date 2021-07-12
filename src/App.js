@@ -8,21 +8,35 @@ class App extends Component {
     console.log("This is");
 
     const movies = [
-    { id: 0, poster_src: "https://www.themoviedb.org/movie/40987-a-tan?language=hu#",
-        title: "Avengers: Infinity War",overview: "As the Avengers"},
-      {id: 1, poster_src: "https://www.themoviedb.org/movie/131586-k-rhinta?language=hu#",
-        title: "The Avengers", overview: "As the Avengers"},
-      {id: 2, poster_src:"https://www.themoviedb.org/movie/8776-isten-hozta-rnagy-r?language=hu#",
-        title: "Avengers: Infinity War", overview: "This is my second owerview",
+      {
+        id: 0,
+        poster_src: 
+        "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/45ho3J929VhtfYgTAgADQJyorYp.jpg",
+        title: "Avengers: Infinity War",
+        overview: "As the Avengers",
+      },
+      {
+        id: 1,
+        poster_src:
+          "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/2F2HzloPm5gFYGaJ9ub3orN74hf.jpg",
+        title: "The Avengers",
+        overview: "As the Avengers",
+      },
+      {
+        id: 2,
+        poster_src:
+          "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/oSjxEkgwITSdpi7lIIIpxZ546g9.jpg",
+        title: "Avengers: Infinity War",
+        overview: "This is my second owerview",
       },
     ];
 
     var movieRows = [];
     movies.forEach((movie) => {
-      console.log(movie.title)
-     const movieRows = <MovieRow movie={movie}/>
-movieRows.push(movieRow);
-    })
+      console.log(movie.title);
+      const movieRow = <MovieRow movie={movie} />;
+      movieRows.push(movieRow);
+    });
 
     this.state = { rows: movieRows };
   }
