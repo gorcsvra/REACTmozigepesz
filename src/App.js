@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import "./App.css";
 import MovieRow from "./MovieRow.js";
+import $ from "jquery"
 
 class App extends Component {
+  
   constructor(props) {
-    super(props);
-    console.log("This is");
+    super(props)
+    this.state = {}
+   /* console.log("This is")
 
-    const movies = [
+    this.const movies = [
       {
         id: 0,
         poster_src: 
@@ -38,10 +41,38 @@ class App extends Component {
       movieRows.push(movieRow);
     });
 
-    this.state = { rows: movieRows };
-  }
+    this.state = { rows: movieRows };*/
+  
+this.performSearch();
+}
 
-  render() {
+performSearch() {
+  console.log("Perform search using moviedb")
+  const urlString = "https://api.themoviedb.org/3/search/company?api_key=<<api_key>>&page=1"
+  $.ajax({
+    url:urlString,
+    success: (searchResults) =>{
+      console.log("Fetched data succesfully")
+
+      const results = searchResults.results
+
+var movieRows = []
+
+results.forEach((movie) => {
+  console.log(movie.title)
+  const movieRow = <MovieRow movie={movie}/>
+  movieRows.push(movieRow)
+})
+
+this.setState({rows: movieRows})
+  },
+error: (xhr, status, err) => {
+  console.error("Failed to fetch data")
+}
+  })
+}
+
+  render(){
     return (
       <div>
         <table className="titleBar">
@@ -75,8 +106,11 @@ class App extends Component {
         />
 
         {this.state.rows}
+
       </div>
     );
+        
   }
 }
-export default App;
+
+export default App
