@@ -43,15 +43,15 @@ class App extends Component {
 
     this.state = { rows: movieRows };*/
   
-this.performSearch();
+this.performSearch("ant man");
 }
 
-performSearch() {
+performSearch(searchTerm) {
   console.log("Perform search using moviedb")
-  const urlString = "https://api.themoviedb.org/3/search/company?api_key=<<api_key>>&page=1"
+  const urlString = "https://api.themoviedb.org/3/movie?api_key=da2b2674d6bcb0d6b1ab24925f2ce427&query=" + searchTerm
   $.ajax({
     url:urlString,
-    success: (searchResults) =>{
+    success: (searchResults) => {
       console.log("Fetched data succesfully")
 
       const results = searchResults.results
@@ -59,8 +59,9 @@ performSearch() {
 var movieRows = []
 
 results.forEach((movie) => {
-  console.log(movie.title)
-  const movieRow = <MovieRow movie={movie}/>
+movie.poster_src = "https://image.tmdb.org/t/p/w185" + movie.poster_path
+ console.log(movie.poster_path)
+  const movieRow = <MovieRow key={movie.id} movie={movie}/>
   movieRows.push(movieRow)
 })
 
@@ -72,18 +73,33 @@ error: (xhr, status, err) => {
   })
 }
 
+searchChangeHandler(event) {
+console.log(event.target.value)
+const boundObject = this
+const searchTerm = event.target.value
+this.performSearch(searchTerm)
+}
+
   render(){
     return (
       <div>
         <table className="titleBar">
           <tbody>
             <tr>
+            <td>
+                <img
+                  width="50"
+                  src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_1-5bdc75aaebeb75dc7ae79426ddd9be3b2be1e342510f8202baf6bffa71d7f5c4.svg"
+                  alt="svg"
+                />
+              </td>
+              <td width="8" />
               <td>
                 <img
                   width="50"
                   src="291690_viddler_movie_social_social media_logo_icon.svg"
                   alt="svg"
-                />
+               />
               </td>
               <td width="8" />
               <td>
@@ -97,13 +113,11 @@ error: (xhr, status, err) => {
           style={{
             fontSize: 24,
             display: "block",
-            width: "99%",
+            width: "98%",
             paddingTop: 8,
             paddingBottom: 8,
             paddingLeft: 16,
-          }}
-          placeholder="Keresés"
-        />
+          }} onChange={this.searchChangeHandler.bind(this)}placeholder="Keresés" />
 
         {this.state.rows}
 
